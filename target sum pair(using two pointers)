@@ -1,0 +1,15 @@
+  public static void targetSumPair(int[] arr, int target){
+    Arrays.sort(arr);
+    int left = 0, right = arr.length - 1;
+    while(left < right){
+      if(arr[left] + arr[right] < target){
+        left++;
+      }else if(arr[left] + arr[right] == target){
+        System.out.println(arr[left] + ", " + arr[right]);
+        left++;
+        right--;
+      }else{
+        right--;
+      }
+    }
+  }
