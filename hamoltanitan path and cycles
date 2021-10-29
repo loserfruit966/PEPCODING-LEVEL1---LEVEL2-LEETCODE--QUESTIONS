@@ -1,0 +1,34 @@
+   public static void hamiltonianPathAndCycle(ArrayList<Edge>[] graph, int osrc, int src, HashSet<Integer> visited, String psf) {
+      if (visited.size() == graph.length - 1) {
+         System.out.print(psf);
+
+         boolean closingEdge = false;
+         for(Edge e: graph[osrc]){
+            if(e.nbr == src){
+               closingEdge = true;
+               break;
+            }
+         }
+
+         if(closingEdge){
+            System.out.println("*");
+         } else {
+            System.out.println(".");
+         }
+         return;
+      }
+
+      visited.add(src);
+      for (Edge e : graph[src]) {
+         if (!visited.contains(e.nbr)) {
+            hamiltonianPathAndCycle(graph, osrc, e.nbr, visited, psf + e.nbr);
+         }
+      }
+      visited.remove(src);
+   }
+
+}
+
+
+                        
+                                
