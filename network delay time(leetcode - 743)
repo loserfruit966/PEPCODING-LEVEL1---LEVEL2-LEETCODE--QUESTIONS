@@ -1,0 +1,77 @@
+class Solution {
+    public class Edge {
+      int src;
+      int nbr;
+      int wt;
+
+      Edge(int src, int nbr, int wt) {
+         this.src = src;
+         this.nbr = nbr;
+         this.wt = wt;
+      }
+    }
+   class Pair implements Comparable<Pair> {
+     
+     int v;
+     int wsf;
+     Pair(int v, int wsf)
+     {
+       this.v = v;
+       this.wsf = wsf;
+     }
+      public int compareTo(Pair o){
+         return this.wsf - o.wsf;
+      }
+   }
+   
+
+    public int networkDelayTime(int[][] arr, int vtces, int k) {
+        k--;
+      ArrayList<Edge>[] graph = new ArrayList[vtces];
+      for (int i = 0; i < vtces; i++) {
+         graph[i] = new ArrayList<>();
+      }
+      
+      for (int i = 0; i < arr.length; i++) {
+         int u = arr[i][0] - 1;
+         int v = arr[i][1] - 1;
+         int wt = arr[i][2];
+         graph[u].add(new Edge(u, v, wt));  
+      }     
+      
+     HashSet <Integer> visited = new HashSet <> ();
+      PriorityQueue <Pair> queue = new PriorityQueue <> ();
+      queue.add(new Pair(k,0));
+      int maxTime = 0;
+     while(queue.size() > 0)
+     {
+       Pair rem = queue.remove();
+       if(visited.contains(rem.v) == true)
+       {
+         continue;
+       }
+       else
+       {
+             visited.add(rem.v);
+       }
+       maxTime = rem.wsf;
+       for(Edge e : graph[rem.v])
+       {
+          if(visited.contains(e.nbr) == false)
+          {
+            queue.add(new Pair(e.nbr,rem.wsf + e.wt));
+          }
+       }
+     }
+      if(visited.size() == vtces)
+      {
+         return maxTime;
+      }
+      else
+      {
+        return -1;
+      }
+      
+   
+}
+}
