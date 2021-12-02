@@ -1,0 +1,57 @@
+  public static ListNode midNode(ListNode head) {
+     if(head == null || head.next == null)
+     {
+         return head;
+     }
+    
+    ListNode slow = head;
+    ListNode fast = head;
+    while(fast.next != null && fast.next.next != null)
+    {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;   
+    }
+     public static ListNode reverse(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode curr = head;
+        ListNode prev = null;
+
+        while (curr != null) {
+            ListNode forw = curr.next;
+
+            curr.next = prev;
+
+            prev = curr;
+            curr = forw;
+        }
+
+        return prev;
+    }
+    public static void unfold(ListNode head) {
+     if(head == null || head.next == null || head.next.next == null)
+     {
+         return;
+     }
+     ListNode fh = head;
+     ListNode sh = fh.next;
+     ListNode fp = head;
+     ListNode sp = fp.next;
+     ListNode forw = null;
+     while(sp != null && sp.next != null)
+     {
+         forw = sp.next;
+         fp.next = forw;
+         sp.next = forw.next;
+         fp = fp.next;
+         sp = sp.next;
+         
+     }
+     fp.next = null;
+     sh = reverse(sh);
+     fp.next = sh;
+
+    }
