@@ -1,0 +1,25 @@
+
+    public static ListNode copyRandomList(ListNode head) {
+        HashMap <ListNode,ListNode> map = new HashMap <> ();
+        ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
+        ListNode curr = head;
+        while(curr != null)
+        {
+            ListNode node = new ListNode(curr.val);
+            prev.next = node;
+            map.put(curr,node);
+            prev = prev.next;
+            curr = curr.next;
+        }
+        ListNode nHead = dummy.next;
+        ListNode c1 = head;
+        ListNode c2 = nHead;
+        while(c2 != null)
+        {
+            c2.random = (c1.random != null) ? map.get(c1.random) : null;
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+        return nHead;
+    }
